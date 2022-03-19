@@ -12,20 +12,21 @@ public class Customer extends PanacheEntity {
     public String primeiroNome;
     public Integer rg;
     public String sobreNome;
+    public Integer numeroCep;
 
-    public static List<Customer> findByPrimeiroNome(Customer customer){
-        List<Customer> customerList = list("primeiroNome",  customer.getPrimeiroNome());
+    public static List<Customer> findByPrimeiroNome(Customer customer) {
+        List<Customer> customerList = list("primeiroNome", customer.getPrimeiroNome());
         return customerList;
     }
 
-    public static List<Customer> findByPrimeiroOrSobreNome(Customer customer){
+    public static List<Customer> findByPrimeiroOrSobreNome(Customer customer) {
         List<Customer> customerList = list("primeiroNome = :firstName or sobreNome = :lastName",
                 Parameters.with("firstName", customer.getPrimeiroNome())
                         .and("lastName", customer.getSobreNome()));
         return customerList;
     }
 
-    public static Customer findByRg(Customer customer){
+    public static Customer findByRg(Customer customer) {
         customer = Customer.find("rg", customer.getRg()).firstResult();
         return customer;
     }
@@ -52,5 +53,13 @@ public class Customer extends PanacheEntity {
 
     public void setSobreNome(String sobreNome) {
         this.sobreNome = sobreNome.toUpperCase();
+    }
+
+    public Integer getNumeroCep() {
+        return numeroCep;
+    }
+
+    public void setNumeroCep(Integer numeroCep) {
+        this.numeroCep = numeroCep;
     }
 }
